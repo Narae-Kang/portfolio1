@@ -1,34 +1,83 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <title>댓글</title>
+<!-- google font -->
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&display=swap" rel="stylesheet">
+<!-- font-awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" />  
 
-<link rel="stylesheet"
-	href="<c:url value="/resources/css/rereply.css"/>">
-<script src="<c:url value="/resources/js/common.js"/>"></script>
-
-<!-- 아이콘 가져오기 -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" />
-
-<!-- 글자 링크 -->
-<link href="https://fonts.googleapis.com/css?family=Jua&display=swap&subset=korean" rel="stylesheet">
-<!--한글+영어(굵고 동글동글한 체) : font-family: 'Jua', sans-serif; -->
-<link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap&subset=korean" rel="stylesheet">
-<!-- 한글+영어(단정 꽉차있는체) : font-family: 'Do Hyeon', sans-serif; -->
-<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding:400,700&display=swap&subset=korean" rel="stylesheet">
-<!-- 한글+영어(단정) : font-family: 'Nanum Gothic Coding', monospace; -->
-<link href="https://fonts.googleapis.com/css?family=Gaegu&display=swap&subset=korean" rel="stylesheet">
-<!-- font-family: 'Gaegu', cursive; -->
-<link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR&display=swap&subset=korean" rel="stylesheet">
-<!-- font-family: 'Noto Serif KR', serif; -->
-<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400&display=swap" rel="stylesheet">
-<!-- font-family: 'Noto Sans KR', sans-serif; -->
-
-<script>
+  <style>
+    *{ box-sizing: border-box;}
+    .smallFont {font-size: 13px; color: gray;}
+    #replyContainer {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    #replyWrapper {
+      width: 1100px;
+      background-color: rgb(247, 247, 247);
+    }
+    #replyContent1 {
+    	width : 100%;
+    }
+    #replyWriteForm {
+   		display: flex;
+   		justify-content: center; 
+    }
+    #replyWriteForm textarea {
+    	width : 95%;
+    }
+    #replyWriteForm button {
+		margin-left:5px;
+    width: 70px;
+    height: 64px;
+    line-height: 40px;
+    font-size: 11px;
+    }
+		
+		#replyList {
+			margin-top: 30px;
+		}
+		replyContent2 {
+			margin-left:30px;
+		}
+    /*작성자 정보*/
+    .col  {
+      padding: 5px 10px;
+      white-space: nowrap;
+    }
+    .replyTitle, .titleBtn {
+      display: flex;
+      align-items: center;
+    }
+     .titleBtn{
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+    } 
+    .titleBtn div {
+      padding: 0 5px;
+    }
+    /*본문*/
+    .replyBody {
+      width: 100%; min-height: 30px;
+      display: flex;
+      align-items: center;
+    }
+    .bodyContent, .bodyContent span {
+      padding: 5px 10px;      
+    }
+  </style>
+  
+	<script>
 	window.addEventListener("load",init2,false);
 	//let l_bnum = 2068;		//게시 원글번호
 	let l_bnum = ${boardVO.bnum }
@@ -362,45 +411,34 @@
 /* 						console.log("rnum="+e.rnum);
 					console.log("rid="+e.rid);
 					console.log("rnickname="+e.rnickname); */
+					
+					str += '<div id="replyContentForm" data-rnum="'+e.rnum+'">';
+					if(e.rindent == 0){
+						str += '  <div id="replyContent1">';
+					}else{
+						str += '  <div id="replyContent2">';
+						
+								    <!-- 헤드 -->
+					str += '    <div class="replyContent replyTitle">';
+					str += '      <div class="col titleName"><b>'+e.name+'('+e.rid+')</b></div>';
+					str += '      <div class="col titleDate smallFont">'+e.rcdate+'</div>';
+					str += '      <div class="col titlerRe"><i class="far fa-comment-dots" title="댓글쓰기"></i></div>';
+					str += '      <div class="col titleBtn">';
+					str += '        <div><a href=""><i class="fas fa-edit replyModifyBtn" title="수정"></a></div>';
+					str += '        <div><a href=""><i class="far fa-trash-alt replyDeleteBtn" title="삭제"></i></a></div>';
+					str += '      </div>';
+					str += '    </div>';
+											<!-- 바디 -->
+					str += '    <div class="replyContent replyBody">';
+					str += '      <div class="bodyContent">';
+					str += '        <span class="smallFont">원댓</span>';
+					str += '        <span>'+e.rcontent+'</span>';
+					str += '      </div>';
+					str += '    </div>';
+					str += '  </div>';
+					str += '</div>';				
 
-						str += '<div class="row pw-10 replyForm" data-rnum="'+e.rnum+'" >';
-						if(e.rindent == 0){
-							str += '  <div class="row pw-10">';
-						}else{
-							str += '  <div class="row pw-10 lm-7">';
-						}																										
-						str += '    <div class="col fw-7"><img src="<c:url value="/resources/img/rereIMG2.jpg" />" alt="사진" /></div>';
-						str += '    <div class="col pw-10">';
-						str += '      <div class="row header pw-10">';
-						str += '        <div class="col fw-15"><b><small>'+e.rnickname+'('+e.rid+')'+'</small></b></div>';
-						str += '        <div class="col fw-15 subInfo"><small><i>'+e.rcdate+'</i></small></div>';
-						str += '        <div class="col"><span><i class="fas fa-reply rereplyBtn" title="댓글달기"></i></span></div>';
-						str += '        <div class="col pw-10">';
-						str += '          <div class="row">';
-  						str += '            <div class="col"><span><i class="fas fa-edit replyModifyBtn" title="수정하기"></i></span></div>	';
-						str += '            <div class="col"><span><i class="far fa-trash-alt replyDeleteBtn" title="삭제하기"></i></span></div>'; 
-/* 						str += '            <div class="col subInfo"><span><small><i>수정</i></small></span></div>	';
-						str += '            <div class="col subInfo"><span><small><i>삭제</i></small></span></div>';  */
-						str += '          </div>';
-						str += '        </div>';
-						str += '      </div>';
-						str += '      <div class="row body">';
-						if(e.prnickname != null){
-							str += '        <div class="col fw-5 subInfo"><small>'+e.prnickname+'</small></div>';
-						}else{
-							str += '        <div class="col fw-5" style="width:0px; position:absolute; left:15px;"></div>';
-						}		
-						str += '        <div class="col">'+e.rcontent+'</div>';
-						str += '      </div>';
-						str += '      <div class="row bottom">';		
-						str += '        <div class="col fw-5"><span><i class="far fa-thumbs-up goodBtn" title="호감"></i></span>('+e.good+')</div>';   
-						str += '        <div class="col fw-5"><span><i class="far fa-thumbs-down badBtn" title="비호감"></i></i></span>('+e.bad+')</div>';
-						str += '      </div>';
-						str += '    </div>';
-						str += '  </div>';
-						str += '</div>';					
-
-						document.getElementById('replyList').innerHTML = str;
+					document.getElementById('replyList').innerHTML = str;
 
 					});//jsObj.list.forEach 
 					
@@ -433,135 +471,48 @@
 			xhttp.open("GET",url,true);
 			xhttp.send();
 		}
+		
 	</script>
+  
 </head>
 <body>
-	<div id="replyArea">
-	  <!-- 댓글 달기 -->
-	  <div id="reply">
-	    <div class="row">
+	
+  <div id="replyContainer">
+    <div id="replyWrapper">
+    
+    	  <!-- 댓글 작성 폼-->
+		  <div id="replyWriteForm">
 	      <textarea name="rcontent" id="rcontent" rows="3"></textarea>
-	      <button id="replyBtn2">등록</button>
-	    </div>
-	  </div>
-	  
-	  <!-- 댓글 목록-->
-	  <div id="replyList"></div>
-	  
-	  <!--페이징-->
-	  <div id="paging"></div>
-  </div>
-<!-- 	<div id="replyArea">
-		댓글 달기
-		<div id="reply">
-			<div class="row">
-				<textarea name="rcontent" id="rcontent" rows="3"></textarea>
-				<button id="replyBtn2">등록</button>
-			</div>
-		</div>
+	      <button id="replyWriteBtn">등록</button>
+		  </div>
+		  
+      <div id="replyListForm" >
+<!--       	<div class="replyContentForm">
+      		<div class="replyContent">
+	      		헤드
+			      <div class="replyTitle">
+			        <div class="col titleName"><b>작성자</b></div>
+			        <div class="col titleDate smallFont">2020-01-01 22:00</div>
+			        <div class="col titlerRe"><i class="far fa-comment-dots"></i></div>
+			        <div class="col titleBtn">
+			          <div><a href="">수정</a></div>
+			          <div><a href="">삭제</a></div>
+			        </div>
+			      </div>
+			      바디
+			      <div class="replyBody">
+			        <div class="bodyContent">
+			          <span class="smallFont">원댓</span>
+			          <span>내용!</span>
+			        </div>
+			      </div>
+			    </div>  
+      	</div> -->
+      </div>
+      
+      
+    </div>	<!-- replyWrapper 끝 -->
+  </div> <!-- replyContainer 끝 -->
 
-		댓글 목록
-		<div id="replyList">
-			원글의 댓글 양식
-			<div class="row pw-10">
-				<div class="row pw-10">
-					<div class="col fw-7">
-						<img src="" alt="사진" />
-					</div>
-					<div class="col pw-10">
-						<div class="row header pw-10">
-							<div class="col fw-10">댓글작성자</div>
-							<div class="col fw-10">
-								<small><i>댓글작성일시</i></small>
-							</div>
-							<div class="col fw-5">
-								<span><a href="#" class="rereplyBtn" data-rnum="">댓글버튼</a></span>
-							</div>
-							<div class="col pw-10">
-								<div class="row">
-									<div class="col fw-5">
-										<span><a href="#" class="replyModifyBtn" data-rnum="">수정버튼</a></span>
-									</div>
-									<div class="col fw-5">
-										<span><a href="#" class="replyDeleteBtn" data-rnum="">삭제버튼</a></span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row body">
-							<div class="col fw-5">부모댓글작성자</div>
-							<div class="col">댓글내용</div>
-						</div>
-						<div class="row bottom">
-							<div class="col fw-10">
-								<span><a href="#" class="goodBtn" data-rnum="">선호</a></span>(3)
-							</div>
-							<div class="col fw-10">
-								<span><a href="#" class="badBtn" data-rnum="">비선호</a></span>(1)
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			대댓글 양식
-			<div class="row pw-10" data-rnum="">
-				<div class="row pw-10 lm-7">
-					<div class="col fw-7">
-						<img src="" alt="사진" />
-					</div>
-					<div class="col pw-10">
-						<div class="row header pw-10">
-							<div class="col fw-10">댓글작성자</div>
-							<div class="col fw-10">
-								<small><i>댓글작성일시</i></small>
-							</div>
-							<div class="col fw-5">
-								<span><a href="#" class="rereplyBtn" data-rnum="">댓글버튼</a></span>
-							</div>
-							<div class="col pw-10">
-								<div class="row">
-									<div class="col fw-5">
-										<span><a href="#" class="replyModifyBtn" data-rnum="">수정버튼</a></span>
-									</div>
-									<div class="col fw-5">
-										<span><a href="#" class="replyDeleteBtn" data-rnum="">삭제버튼</a></span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row body">
-							<div class="col fw-5">부모댓글작성자</div>
-							<div class="col">댓글내용</div>
-						</div>
-						<div class="row bottom">
-							<div class="col fw-10">
-								<span><a href="#" class="goodBtn" data-rnum="">선호</a></span>(3)
-							</div>
-							<div class="col fw-10">
-								<span><a href="#" class="badBtn" data-rnum="">비선호</a></span>(1)
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		페이징
-		<div id="paging">
-	    <a href="#">첫페이지</a>
-	    <a href="#">이전페이지</a>
-	    <a href="#">1</a>
-	    <a href="#">2</a>
-	    <a href="#">3</a>
-	    <a href="#">4</a>
-	    <a href="#">5</a>
-	    <a href="#">6</a>
-	    <a href="#">7</a>
-	    <a href="#">8</a>
-	    <a href="#">9</a>
-	    <a href="#">10</a>
-	    <a href="#">다음페이지</a>
-	    <a href="#">끝페이지</a>
-  	</div>
-	</div> -->
 </body>
 </html>

@@ -8,8 +8,8 @@
 
 	INSERT INTO rboard (
 	  rnum,
-	  bnum,
 	  rid,
+	  bnum,
 	  rnickname,
 	  rcontent,
 	  rgroup
@@ -39,7 +39,8 @@
 		         rid,          rnickname,
 		         rcdate,
 		         rcontent,
-		         rgroup,       rstep,        rindent,
+		         rgroup,       rstep,       
+		         ghkfkd rindent,
 		         prnum,				 prid,				 prnickname
 		from(
 		  select row_number() over (order by rgroup desc, rstep asc) as  num, 
@@ -104,8 +105,8 @@
 
 	INSERT INTO rboard (
 	  rnum,
-	  bnum,
 	  rid,
+	  bnum,
 	  rnickname,
 	  rcontent,
 	  rgroup,
@@ -117,8 +118,8 @@
 	
 	) VALUES (
 	  rboard_rnum_seq.nextval,
-	  #{bnum},
 	  #{rid},
+	  #{bnum},
 	  #{rnickname},
 	  #{rcontent},
 	  #{rgroup},
@@ -129,6 +130,7 @@
 	  #{prnickname}		
 	)
 </insert>
+
 <!-- 이전댓글 step 업데이트 -->
 <update id="updateStep"
 				parameterType="map">
@@ -136,6 +138,7 @@
 		   set rstep = rstep + 1
 	   where rgroup = #{rgroup} and rstep > #{rstep}	
 </update>	
+
 <!-- 댓글정보 읽어오기 -->
 <select id="replyView"
 				parameterType="long"
@@ -143,6 +146,10 @@
 	select bnum, rid, rnickname, rgroup, rstep, rindent 
 	  from rboard where rnum = #{rnum}
 </select>
+
+
+
+
 <!-- 댓글 호감, 비호감 -->
 <select id="checkVote"
 				parameterType="VoteVO">

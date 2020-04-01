@@ -53,6 +53,18 @@
 	</beans:bean>	
 	
 	
+	<!-- sse -->
+   <view-controller path="/sse/stock" view-name="sse/stock"/>
+   <view-controller path="/sse/stockServer" view-name="sse/stockServer"/>
+   <view-controller path="/websocket/memorymonitor" view-name="websocket/memorymonitor"/>
+   
+   	<!-- websocket -->
+<!-- 		<websocket:handlers>
+			<websocket:mapping path="/websocket/memorymonitor" handler="memorymonitorHandler" />
+		</websocket:handlers>
+		<beans:bean id="memorymonitorHandler" 
+								class="com.kh.portfolio.websocket.handler.MemoryMonitorHandler"/> -->
+	
 	<!-- component : @Controller, @Service, @Repository 중에서	
 									 @Controller가 있는 클래스를 인스턴스화 하도록 설정함		-->
 	<!-- use-default-filters="false" false로 하고 expression="org.springframework.stereotype.Controller" 해서
@@ -64,6 +76,7 @@
 	<context:include-filter type="annotation"
 												  expression="org.springframework.stereotype.ControllerAdvice" />
 	</context:component-scan>
+	
 	
 </beans:beans>
 

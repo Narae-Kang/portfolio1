@@ -93,5 +93,21 @@ public class HomeController {
 		return "/contact";
 	}
 	//----------------------------------------------------예약
- 	
+//	@GetMapping("/sse/stock")
+//	public String stock() {
+//		return "/sse/stock";
+//	}
+//	@GetMapping("/sse/stockServer")
+//	public String stockServer() {
+//		return "/sse/stockServer";
+//	}
+//	
+	
+	
+	
+	
+	
+	
+	
+	
 }

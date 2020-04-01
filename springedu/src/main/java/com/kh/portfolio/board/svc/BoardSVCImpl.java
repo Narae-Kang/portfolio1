@@ -45,8 +45,8 @@ public class BoardSVCImpl implements BoardSVC {
 		//2) bnum 가져오기 => mybatis: selectkey 사용
 		
 		//3) 첨부파일 있는경우
-		logger.info("첨부갯수:"+boardVO.getFiles().size());
 		if(boardVO.getFiles() != null && boardVO.getFiles().size() > 0) {
+		logger.info("첨부갯수:"+boardVO.getFiles().size());
 			fileWrite(boardVO.getFiles(),boardVO.getBnum());
 		}
 		return cnt;

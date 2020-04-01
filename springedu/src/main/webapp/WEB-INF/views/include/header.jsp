@@ -31,16 +31,16 @@
         </li>
         <li class="menu list4"><a href="#">EVENT</a>
         </li>
+        
         <c:if test="${empty member }" >  
         <div class="menu_forms">		
           <li class="menu list6"><a href="<c:url value='/member/joinForm' />">회원가입</a></li>
           <li class="menu list5"><a href="<c:url value='/loginForm' />">로그인</a></li>
         </div>
         </c:if>
+        
         <c:if test="${!empty member }" >
-        <div class="menu_forms">
-<%-- 					<li class="menu list6"><a href="<c:url value='/member/modifyForm/${sessionScope.member.id }' />">${sessionScope.member.nickname }님 </a></li>
-	 --%>							
+        <div class="menu_forms">	
 					<li class="menu list6">
 						<c:choose>
 							<c:when test="${sessionScope.member.admin > 0 }">

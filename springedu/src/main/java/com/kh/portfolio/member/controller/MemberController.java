@@ -44,27 +44,27 @@ public class MemberController {
 	@Inject
 	MemberSVC memberSVC;
 	
-//	@ModelAttribute
-//	public void initData(Model model) {
-//		//지역
-//		List<Code> region = new ArrayList<>();
-//		region.add(new Code("서울","서울"));
-//		region.add(new Code("경기","경기"));
-//		region.add(new Code("인천","인천"));
-//		region.add(new Code("대전","대전"));
-//		region.add(new Code("충북","충북"));
-//		region.add(new Code("충남","충남"));
-//		region.add(new Code("경북","경북"));
-//		region.add(new Code("경남","경남"));
-//		region.add(new Code("울산","울산"));
-//		model.addAttribute("region", region);
-//		
-//		//성별
-//		List<Code> gender = new ArrayList<>();
-//		gender.add(new Code("남","남자"));
-//		gender.add(new Code("여","여자"));
-//		model.addAttribute("gender", gender);
-//	}
+	@ModelAttribute
+	public void initData(Model model) {
+		//지역
+		List<Code> region = new ArrayList<>();
+		region.add(new Code("서울","서울"));
+		region.add(new Code("경기","경기"));
+		region.add(new Code("인천","인천"));
+		region.add(new Code("대전","대전"));
+		region.add(new Code("충북","충북"));
+		region.add(new Code("충남","충남"));
+		region.add(new Code("경북","경북"));
+		region.add(new Code("경남","경남"));
+		region.add(new Code("울산","울산"));
+		model.addAttribute("region", region);
+		
+		//성별
+		List<Code> gender = new ArrayList<>();
+		gender.add(new Code("남","남자"));
+		gender.add(new Code("여","여자"));
+		model.addAttribute("gender", gender);
+	}
 
 //------------------------------------------회원가입	
 	//회원가입양식

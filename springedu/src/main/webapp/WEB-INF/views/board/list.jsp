@@ -72,8 +72,7 @@
 						<td class="col-6">조회수</td>
 					</tr>
 					<c:forEach var="rec" items="${list }">
-						<fmt:formatDate value="${rec.bcdate }" pattern="yyyy-MM-dd HH:mm"
-							var="cdate" />
+						<fmt:formatDate value="${rec.bcdate }" pattern="yyyy-MM-dd HH:mm" var="cdate" />
 						<tr>
 							<td class="col-1">${rec.bnum }</td>
 							<td class="col-2">${rec.boardCategoryVO.cname }</td>
